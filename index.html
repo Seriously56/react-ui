@@ -198,7 +198,7 @@
     transform-origin: center center;
 }
 
-/* Custom Animated FODO Banners */
+/* Custom Animated RXBYPASS Banners */
 .PWrapper .PBanner .CustomBanner {
     position: absolute;
     width: 100%;
@@ -209,7 +209,7 @@
     overflow: hidden;
 }
 
-.PWrapper .PBanner .CustomBanner .FODOText {
+.PWrapper .PBanner .CustomBanner .RXBYPASSText {
     position: relative;
     font-family: 'Inter', 'Segoe UI', sans-serif;
     font-weight: 800;
@@ -228,7 +228,7 @@
     animation: smoothGradient 8s ease-in-out infinite;
 }
 
-.PWrapper .PBanner .CustomBanner.theme-neon .FODOText {
+.PWrapper .PBanner .CustomBanner.theme-neon .RXBYPASSText {
     color: #00ffff;
     text-shadow: 
         0 0 10px rgba(0, 255, 255, 0.8),
@@ -249,7 +249,7 @@
     animation: smoothGradient 10s ease-in-out infinite;
 }
 
-.PWrapper .PBanner .CustomBanner.theme-minimal .FODOText {
+.PWrapper .PBanner .CustomBanner.theme-minimal .RXBYPASSText {
     color: #1a1a1a;
     text-shadow: 
         0 1px 2px rgba(0, 0, 0, 0.1),
@@ -264,7 +264,7 @@
     animation: smoothGradient 7s ease-in-out infinite;
 }
 
-.PWrapper .PBanner .CustomBanner.theme-glitch .FODOText {
+.PWrapper .PBanner .CustomBanner.theme-glitch .RXBYPASSText {
     color: #00ff88;
     text-shadow: 
         0 0 8px rgba(0, 255, 136, 0.7),
@@ -280,7 +280,7 @@
     animation: smoothGradient 9s ease-in-out infinite;
 }
 
-.PWrapper .PBanner .CustomBanner.theme-retro .FODOText {
+.PWrapper .PBanner .CustomBanner.theme-retro .RXBYPASSText {
     color: #ffffff;
     text-shadow: 
         0 2px 4px rgba(0, 0, 0, 0.4),
@@ -296,7 +296,7 @@
     animation: smoothGradient 8s ease-in-out infinite;
 }
 
-.PWrapper .PBanner .CustomBanner.theme-cyber .FODOText {
+.PWrapper .PBanner .CustomBanner.theme-cyber .RXBYPASSText {
     color: #64d9ff;
     text-shadow: 
         0 0 10px rgba(100, 217, 255, 0.8),
@@ -15523,7 +15523,7 @@ const Vg = () => {
     })
       , [v,P] = L.useState("0vw")
       , [f,c] = L.useState("1.5625vw")
-      , [p,w] = L.useState("FODO")
+      , [p,w] = L.useState("RXBYPASS")
       , [_,E] = L.useState("0%")
       , [k,O] = L.useState("0%")
       , V = L.useRef([]);
@@ -15738,8 +15738,8 @@ const Vg = () => {
                         children: y.bannerType === "custom-animated" ? x("div", {
                             className: "CustomBanner theme-" + (y.bannerTheme || "neon"),
                             children: x("div", {
-                                className: "FODOText",
-                                children: "FODO"
+                                className: "RXBYPASSText",
+                                children: "RXBYPASS"
                             })
                         }) : (y.link && y.bannerType === "video") ? x("iframe", {
                             src: y.link,
