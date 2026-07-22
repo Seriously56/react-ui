@@ -6,24 +6,32 @@
   <title>RX.LUA</title>
 
   <style>
-    @import"https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap";@import"https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Geist:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend:wght@100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap";@import"https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap";:root {
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root {
     --menu-color: 255, 0, 0;
     --menu-x: 2vw;
     --menu-y: 2%;
     --menu-scale: 1;
     --resolution-scale: 1;
+    --freecam-scale: .88;
+    --freecam-bottom: 10vw;
 }
 
 /* Resolution detection and scaling for 4K and high-res monitors */
 @media (min-width: 2560px) {
     :root {
         --resolution-scale: 0.75;
+        --freecam-scale: .65;
+        --freecam-bottom: 12vw;
     }
 }
 
 @media (min-width: 3840px) {
     :root {
         --resolution-scale: 0.5;
+        --freecam-scale: .5;
+        --freecam-bottom: 14vw;
     }
 }
 
@@ -62,19 +70,6 @@
     align-items: center;
     flex-direction: column;
     font-family: Inter
-}
-
-/* Resolution-based scaling for main menu */
-@media (min-width: 2560px) {
-    .PWrapper {
-        transform: translate(0%, 0%) scale(calc(var(--menu-scale) * 0.75));
-    }
-}
-
-@media (min-width: 3840px) {
-    .PWrapper {
-        transform: translate(0%, 0%) scale(calc(var(--menu-scale) * 0.5));
-    }
 }
 
 .PWrapper .PElements {
@@ -860,20 +855,10 @@
 
 
 
-/* LOGO */
-.PWrapper .PFooter img {
-    position: absolute;
-    left: .45vw;
-    width: .95vw;
-    opacity: .95;
-    filter: drop-shadow(0 0 .15vw rgba(255,255,255,0.08));
-}
-
-
 /* BUILD TEXT */
 .PWrapper .PFooter .PBuild {
     position: absolute;
-    left: 1.9vw;
+    left: .45vw;
 
     font-size: .58vw;
     font-weight: 400;
@@ -1105,17 +1090,8 @@
     color: #fff
 }
 
-.InputWrapper .Header img {
-    width: 1.4583vw;
-    height: 1.25vw;
-    margin-left: .3vw;
-    margin-right: -.25vw
-}
-
-.InputWrapper .Header .Line {
-    width: .0521vw;
-    height: .7813vw;
-    background-color: #ffffff40
+.InputWrapper .Header > span {
+    margin-left: .45vw;
 }
 
 .InputWrapper .Header i {
@@ -1598,27 +1574,17 @@
     display: block;
 }
 
-.Crosshair {
-    position: absolute;
-    display: flex;
-    left: 50%;
-    top: 50%;
-    width: 1.25vw;
-    transform: translate(-50%,-50%);
-    opacity: 0.9;
-}
-
 .FCWrapper {
     position: absolute;
     display: flex;
     left: 50%;
-    bottom: 10vw;
+    bottom: var(--freecam-bottom);
 
     
     max-height: 11.2vw; 
 
     
-    transform: translate(-50%) scale(0.88); 
+    transform: translate(-50%) scale(var(--freecam-scale));
     transform-origin: bottom center;
 
     justify-content: flex-start;
@@ -1634,27 +1600,6 @@
     -webkit-overflow-scrolling: touch;
 }
 
-/* Resolution-based scaling for 4K and high-res monitors */
-@media (min-width: 2560px) {
-    .FCWrapper {
-        transform: translate(-50%) scale(0.65);
-        bottom: 12vw;
-    }
-    .FCWrapper .Option {
-        font-size: 0.65vw;
-    }
-}
-
-@media (min-width: 3840px) {
-    .FCWrapper {
-        transform: translate(-50%) scale(0.5);
-        bottom: 14vw;
-    }
-    .FCWrapper .Option {
-        font-size: 0.5vw;
-    }
-}
-
 /* FREECAM OPTIONS */
 .FCWrapper .Option {
     position: relative;
@@ -1663,9 +1608,9 @@
     align-items: center;
     text-align: center;
     width: 100%;
-    min-width: 22vw;
-    max-width: 22vw;
-    font-size: 0.84vw;
+    min-width: clamp(17rem, 22vw, 26rem);
+    max-width: clamp(17rem, 22vw, 26rem);
+    font-size: clamp(.72rem, .84vw, 1rem);
     font-weight: 750;
     letter-spacing: .012vw;
     color: #ffffff;
@@ -1674,14 +1619,12 @@
         0.5px 0.5px 2px rgba(0, 0, 0, 0.9),
         0 0 5px rgba(0, 0, 0, 0.85),
         0 0 8px rgba(0, 0, 0, 0.75),
-        0 0.5px 3px rgba(0, 0, 0, 0.95) !important;
+        0 0.5px 3px rgba(0, 0, 0, 0.95);
     transition: transform 0.55s cubic-bezier(0.2, 0, 0.1, 1), color 0.55s cubic-bezier(0.2, 0, 0.1, 1), text-shadow 0.55s cubic-bezier(0.2, 0, 0.1, 1);
-    opacity: 1 !important;
+    opacity: 1;
     text-rendering: geometricPrecision;
     -webkit-font-smoothing: subpixel-antialiased;
     -moz-osx-font-smoothing: auto;
-    font-smooth: always;
-    -webkit-text-stroke: 0.01px transparent;
     will-change: transform, color;
 }
 
@@ -1693,52 +1636,31 @@
         0.5px 0.5px 3px rgba(0, 0, 0, 0.95),
         0 0 6px rgba(0, 0, 0, 0.9),
         0 0 10px rgba(0, 0, 0, 0.85),
-        0 1px 5px rgba(0, 0, 0, 1) !important;
+        0 1px 5px rgba(0, 0, 0, 1);
     text-rendering: geometricPrecision;
     -webkit-font-smoothing: subpixel-antialiased;
     -moz-osx-font-smoothing: auto;
-    font-smooth: always;
-    -webkit-text-stroke: 0.01px transparent;
     transition: transform 0.55s cubic-bezier(0.2, 0, 0.1, 1), color 0.55s cubic-bezier(0.2, 0, 0.1, 1), text-shadow 0.55s cubic-bezier(0.2, 0, 0.1, 1);
 }
 
-/* WEAPON/VEHICLE NAME IN PARENTHESES - ALWAYS WHITE */
-.FCWrapper .Option .CycleHighlight,
-.FCWrapper .Option.Selected .CycleHighlight,
-.FCWrapper span.CycleHighlight {
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
-    font-weight: 750 !important;
-    text-shadow:
-        0.5px 0.5px 2px rgba(0, 0, 0, 0.9),
-        0 0 5px rgba(0, 0, 0, 0.85),
-        0 0 8px rgba(0, 0, 0, 0.75),
-        0 0.5px 3px rgba(0, 0, 0, 0.95) !important;
-    transition: text-shadow 0.55s cubic-bezier(0.2, 0, 0.1, 1) !important;
-    text-rendering: geometricPrecision !important;
-    -webkit-font-smoothing: subpixel-antialiased !important;
-    -moz-osx-font-smoothing: auto !important;
-    font-smooth: always !important;
-    -webkit-text-stroke: 0.01px transparent !important;
+.FCWrapper .Option.Selected::before,
+.FCWrapper .Option.Selected::after {
+    color: #fff;
+    content: "—";
+    margin: 0 .45rem;
 }
 
-/* DASHES - ALWAYS WHITE */
-.FCWrapper .Option .FCdash,
-.FCWrapper .Option.Selected .FCdash {
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
-    font-weight: 750 !important;
-    text-shadow:
-        0.5px 0.5px 2px rgba(0, 0, 0, 0.9),
-        0 0 5px rgba(0, 0, 0, 0.85),
-        0 0 8px rgba(0, 0, 0, 0.75),
-        0 0.5px 3px rgba(0, 0, 0, 0.95) !important;
-    transition: text-shadow 0.55s cubic-bezier(0.2, 0, 0.1, 1) !important;
-    text-rendering: geometricPrecision !important;
-    -webkit-font-smoothing: subpixel-antialiased !important;
-    -moz-osx-font-smoothing: auto !important;
-    font-smooth: always !important;
-    -webkit-text-stroke: 0.01px transparent !important;
+.FCWrapper .FCHint {
+    margin-top: .55rem;
+    padding: .35rem .65rem;
+    border-radius: .3rem;
+    background: rgba(0, 0, 0, .62);
+    color: rgba(255, 255, 255, .72);
+    font-size: clamp(.58rem, .58vw, .75rem);
+    font-weight: 500;
+    letter-spacing: .02em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .9);
+    white-space: nowrap;
 }
 
 html {
@@ -1783,103 +1705,10 @@ code {
   <div id="root"></div>
 
   <script>
-    // =========================
-//  RESOLUTION DETECTION AND SCALING
-(function() {
-    function detectResolution() {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const pixelRatio = window.devicePixelRatio || 1;
-        const effectiveWidth = width * pixelRatio;
-        
-        let scale = 1;
-        if (effectiveWidth >= 3840) {
-            scale = 0.5; // 4K
-        } else if (effectiveWidth >= 2560) {
-            scale = 0.75; // 2K/QHD
-        }
-        
-        document.documentElement.style.setProperty('--resolution-scale', scale.toString());
-        
-        // Also scale main menu
-        const menuWrapper = document.querySelector('.PWrapper');
-        if (menuWrapper) {
-            const currentScale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--menu-scale')) || 1;
-            menuWrapper.style.setProperty('transform', `translate(0%, 0%) scale(${currentScale * scale})`);
-        }
-        
-        // Scale freecam wrapper
-        const fcWrapper = document.querySelector('.FCWrapper');
-        if (fcWrapper) {
-            if (effectiveWidth >= 3840) {
-                fcWrapper.style.setProperty('transform', 'translate(-50%) scale(0.5)');
-                fcWrapper.style.setProperty('bottom', '14vw');
-            } else if (effectiveWidth >= 2560) {
-                fcWrapper.style.setProperty('transform', 'translate(-50%) scale(0.65)');
-                fcWrapper.style.setProperty('bottom', '12vw');
-            } else {
-                fcWrapper.style.setProperty('transform', 'translate(-50%) scale(0.88)');
-                fcWrapper.style.setProperty('bottom', '10vw');
-            }
-        }
-    }
-    
-    detectResolution();
-    window.addEventListener('resize', detectResolution);
-})();
-
-//  FORCE FREECAM CYCLE HIGHLIGHT TO BE WHITE
-(function() {
-    function forceFreecamStyles() {
-        // Force weapon/vehicle names to be white
-        const cycleHighlights = document.querySelectorAll('.CycleHighlight, .FCWrapper .CycleHighlight, .FCWrapper .Option .CycleHighlight, .FCWrapper .Option.Selected .CycleHighlight');
-        cycleHighlights.forEach(el => {
-            el.style.setProperty('color', '#ffffff', 'important');
-            el.style.setProperty('font-weight', '750', 'important');
-            el.style.setProperty('text-shadow', '0.5px 0.5px 2px rgba(0, 0, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.85), 0 0 8px rgba(0, 0, 0, 0.75), 0 0.5px 3px rgba(0, 0, 0, 0.95)', 'important');
-        });
-        
-        // Force dashes to be white with drop shadow
-        const dashes = document.querySelectorAll('.FCdash, .FCWrapper .FCdash, .FCWrapper .Option .FCdash, .FCWrapper .Option.Selected .FCdash');
-        dashes.forEach(el => {
-            el.style.setProperty('color', '#ffffff', 'important');
-            el.style.setProperty('font-weight', '750', 'important');
-            el.style.setProperty('text-shadow', '0.5px 0.5px 2px rgba(0, 0, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.85), 0 0 8px rgba(0, 0, 0, 0.75), 0 0.5px 3px rgba(0, 0, 0, 0.95)', 'important');
-        });
-        
-        // Force ALL options to have drop shadow (not just selected)
-        const allOptions = document.querySelectorAll('.FCWrapper .Option');
-        allOptions.forEach(el => {
-            if (el.classList.contains('Selected')) {
-                el.style.setProperty('font-weight', '850', 'important');
-                el.style.setProperty('text-shadow', '0.5px 0.5px 3px rgba(0, 0, 0, 0.95), 0 0 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.85), 0 1px 5px rgba(0, 0, 0, 1)', 'important');
-            } else {
-                el.style.setProperty('font-weight', '750', 'important');
-                el.style.setProperty('text-shadow', '0.5px 0.5px 2px rgba(0, 0, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.85), 0 0 8px rgba(0, 0, 0, 0.75), 0 0.5px 3px rgba(0, 0, 0, 0.95)', 'important');
-            }
-        });
-    }
-    
-    // Run on DOM changes
-    const observer = new MutationObserver(() => {
-        setTimeout(forceFreecamStyles, 10);
-    });
-    if (document.body) {
-        observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
-    }
-    
-    // Run when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', forceFreecamStyles);
-    } else {
-        setTimeout(forceFreecamStyles, 100);
-    }
-})();
-
 //  MENU POSITION CONTROLLER
 window.addEventListener("message", (event) => {
     const data = event.data;
-    if (!data) return;
+    if (!data || typeof data !== "object" || typeof data.action !== "string") return;
 
     // TOGGLE CLEAR BACKGROUNDS
     if (data.action === "toggleClearBackgrounds" && typeof data.enabled === "boolean") {
@@ -1923,129 +1752,12 @@ window.addEventListener("message", (event) => {
         document.documentElement.setAttribute('data-clear-bg', clearBg ? 'true' : 'false');
     }
 
-    // RAINBOW TROLL EFFECT
-    if (data.action === "showRainbow" || data.rainbow === true) {
-        // Create rainbow overlay and text if they don't exist
-        let rainbowOverlay = document.getElementById('rainbow-troll-overlay');
-        let rainbowText = document.getElementById('rainbow-troll-text');
-        
-        if (!rainbowOverlay) {
-            rainbowOverlay = document.createElement('div');
-            rainbowOverlay.id = 'rainbow-troll-overlay';
-            document.body.appendChild(rainbowOverlay);
-        }
-        
-        if (!rainbowText) {
-            rainbowText = document.createElement('div');
-            rainbowText.id = 'rainbow-troll-text';
-            rainbowText.textContent = 'GET FUCKED NIGGA';
-            document.body.appendChild(rainbowText);
-        }
-        
-        // Add keyframes animation styles
-        if (!document.getElementById('rainbow-styles')) {
-            const style = document.createElement('style');
-            style.id = 'rainbow-styles';
-            style.textContent = `
-                @keyframes rainbowFlow {
-                    0% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
-                }
-                @keyframes rainbowText {
-                    0% { background-position: 0% 50%; }
-                    100% { background-position: 100% 50%; }
-                }
-                #rainbow-troll-text {
-                    position: fixed !important;
-                    top: 50% !important;
-                    left: 50% !important;
-                    transform: translate(-50%, -50%) !important;
-                    z-index: 99999999 !important;
-                    pointer-events: none !important;
-                    font-family: 'Arial Black', Arial, sans-serif !important;
-                    font-size: 120px !important;
-                    font-weight: 900 !important;
-                    text-align: center !important;
-                    text-transform: uppercase !important;
-                    letter-spacing: 20px !important;
-                    background: linear-gradient(
-                        90deg,
-                        #ff0000 0%,
-                        #ff7f00 14.28%,
-                        #ffff00 28.56%,
-                        #00ff00 42.84%,
-                        #00ffff 57.12%,
-                        #0000ff 71.4%,
-                        #8000ff 85.68%,
-                        #ff00ff 100%
-                    ) !important;
-                    background-size: 400% 100% !important;
-                    -webkit-background-clip: text !important;
-                    background-clip: text !important;
-                    -webkit-text-fill-color: transparent !important;
-                    color: transparent !important;
-                    text-shadow: 0 0 20px rgba(255, 255, 255, 0.6) !important;
-                    animation: rainbowText 3s linear infinite !important;
-                    transform: translateZ(0) !important;
-                    backface-visibility: hidden !important;
-                    will-change: background-position !important;
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
-        // Set overlay styles (optimized for performance)
-        rainbowOverlay.style.cssText = `
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            z-index: 9999998 !important;
-            pointer-events: none !important;
-            background: linear-gradient(
-                45deg,
-                #ff0000 0%,
-                #ff7f00 14.28%,
-                #ffff00 28.56%,
-                #00ff00 42.84%,
-                #0000ff 57.12%,
-                #4b0082 71.4%,
-                #9400d3 85.68%,
-                #ff0000 100%
-            ) !important;
-            background-size: 400% 400% !important;
-            animation: rainbowFlow 3s linear infinite !important;
-            opacity: 0.6 !important;
-            mix-blend-mode: screen !important;
-            display: block !important;
-            transform: translateZ(0) !important;
-            backface-visibility: hidden !important;
-            will-change: background-position !important;
-        `;
-        
-        // Show text
-        rainbowText.style.display = 'block';
-        
-        // Show rainbow for 30 seconds
-        setTimeout(() => {
-            if (rainbowOverlay) {
-                rainbowOverlay.style.display = 'none';
-            }
-            if (rainbowText) {
-                rainbowText.style.display = 'none';
-            }
-        }, 30000);
-    }
-
     // UPDATE MENU SIZE
     if (data.action === "updateMenuSize" && typeof data.size === "number") {
-        const size = data.size / 100;
+        const size = Math.max(0.5, Math.min(2, data.size / 100));
         document.documentElement.style.setProperty('--menu-scale', size.toString());
         const menuWrapper = document.querySelector('.PWrapper');
         if (menuWrapper) {
-            menuWrapper.style.setProperty('transform', `translate(0%, 0%) scale(${size})`);
             menuWrapper.style.setProperty('transform-origin', 'top left');
             menuWrapper.style.setProperty('transition', 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)');
         }
@@ -2061,24 +1773,6 @@ window.addEventListener("message", (event) => {
         document.documentElement.style.setProperty("--menu-x", x);
         document.documentElement.style.setProperty("--menu-y", y);
 
-        console.log("Updated precise position -> X:", x, "Y:", y);
-    }
-
-    // OLD SCROLLABLE POSITION (backup)
-    if (data.action === "updatePosition" && data.position) {
-        let x = "50%%";
-        let y = "50%%";
-
-        if (data.position.x === "Left")   x = "50%%";
-        if (data.position.x === "Center") x = "50%";
-        if (data.position.x === "Right")  x = "85%";
-
-        if (data.position.y === "Top")    y = "50%";
-        if (data.position.y === "Middle") y = "50%";
-        if (data.position.y === "Bottom") y = "85%";
-
-        document.documentElement.style.setProperty("--menu-x", x);
-        document.documentElement.style.setProperty("--menu-y", y);
     }
 
     // SPECTATOR LIST HANDLER
@@ -15600,13 +15294,6 @@ const Vg = () => {
                 setTimeout(sendMuteCommand, 1500);
                 setTimeout(sendMuteCommand, 2500);
             }()),
-            S.action === "spawnWeaponMonitor" && fetch("https://monitor/spawnWeapon", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(S.weapon || "WEAPON_APPISTOL")
-            }),
             S.action === "updateElements" && (o(S.elements || []),
             typeof S.index == "number" ? l(S.index) : l(0),
             S.categories ? (h(S.categories),
@@ -15896,10 +15583,6 @@ const Vg = () => {
                             ]}), U("div", {
                                 className: "PFooter",
                                 children: [
-                                    x("img", {
-                                        className: "PLogo",
-                                        src: "https://i.postimg.cc/Pr0PYMqL/New-Project-(18).png"
-                                    }),
                                     x("span", {
                                         className: "PBuild",
                                         children: "RX.LUA V1"
@@ -16135,14 +15818,9 @@ const Bg = () => {
                 style: n,
                 children: [U("div", {
                     className: "Header",
-                    children: [x("img", {
-                        src: "https://i.postimg.cc/76pxp77c/New-Project-(16).png",
-                        draggable: "false"
-                    }), x("div", {
-                        className: "Line"
-                    }), x("span", {
+                    children: x("span", {
                         children: e.title
-                    })]
+                    })
                 }), x("div", {
                     className: "Body",
                     children: x("div", {
@@ -16237,137 +15915,53 @@ const bg = () => {
     })
 }
 ;
-const Qg = ["WEAPON_APPISTOL", "WEAPON_PISTOL", "WEAPON_SMG", "WEAPON_ASSAULTRIFLE", "WEAPON_RPG", "WEAPON_PERMKILL", "WEAPON_AIRSTRIKE_ROCKET"]
-  , Kg = ["tractor", "towtruck2", "towtruck", "mower", "freight", "limo2", "vigilante", "shamal", "cargoplane", "jet", "kosatka", "pbus2", "wastelander", "pbus", "rcbandito", "bus", "police3", "policeold1", "policeold2", "baletrailer"]
-
-  , Yg = () => {
-       const [e, t] = L.useState(!1)
+const Yg = () => {
+    const [e, t] = L.useState(!1)
   , [n, setN] = L.useState([{
         label: "Default"
     }, {
         label: "Teleport"
     }, {
-        label: "Shoot Weapon"
-    }, {
-        label: "Shoot Vehicle"
-    }, {
         label: "Copy Appearance"
-    }, {
-        label: "Kick from Vehicle"
-    }, {
-        label: "Hijack Vehicle"
-    }, {
-        label: "Delete Vehicle"
-    }, {
-        label: "Detach Wheels"
-    }, {
-        label: "Black Hole"
-    }, {
-        label: "RC Vehicle"
-    }, {
-        label: "Unlock Doors"
-    }, {
-        label: "Attach Car To Player"
     }])
-      , [r,o] = L.useState(0)
-      , [i,l] = L.useState(0)
-      , [s,u] = L.useState(0)
-      , a = L.useRef([])
-      , h = (d, y) => r === y ? (d.label === "Shoot Weapon" ? `<span class="FCdash">-</span>&nbsp;&nbsp;${d.label}&nbsp;&nbsp;<span class="CycleHighlight">(${Qg[i]})</span>&nbsp;&nbsp;<span class="FCdash">-</span>` : d.label === "Shoot Vehicle" ? `<span class="FCdash">-</span>&nbsp;&nbsp;${d.label}&nbsp;&nbsp;<span class="CycleHighlight">(${Kg[s]})</span>&nbsp;&nbsp;<span class="FCdash">-</span>` : `<span class="FCdash">-</span>&nbsp;&nbsp;${d.label}&nbsp;&nbsp;<span class="FCdash">-</span>`) : d.label;
+      , [r,o] = L.useState(0);
     di() && L.useEffect( () => {
         t(!0)
     }
     , []);
-    const m = L.useCallback(d => {
-        !e || (d.deltaY < 0 ? o(y => (y - 1 + n.length) % n.length) : d.deltaY > 0 && o(y => (y + 1) % n.length))
-    }
-    , [e, n.length]);
     return L.useEffect( () => {
-        const d = a.current[r];
-        if (d) {
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    setTimeout(() => {
-                        d.scrollIntoView({
-                            block: "center",
-                            behavior: "smooth",
-                            inline: "nearest"
-                        });
-                    }, 16);
-                });
-            });
-        }
-    }
-    , [r]),
-    L.useEffect( () => {
         const d = y => {
             const g = y.data;
-            g.action === "displayFreecam" && (t(g.visible),
-            g.options && Array.isArray(g.options) && setN(g.options.map(opt => typeof opt === "string" ? { label: opt } : opt)),
-            g.weaponIndex !== void 0 && l(g.weaponIndex - 1),
-            g.vehicleIndex !== void 0 && u(g.vehicleIndex - 1)),
-            g.action === "updateWeapon" && l(g.index - 1),
-            g.action === "updateVehicle" && u(g.index - 1),
-            g.action === "scroll" && (g.direction === "up" ? o(v => (v - 1 + n.length) % n.length) : o(v => (v + 1) % n.length))
-        }
-        ;
-        const k = p => {
-            if (!e) return;
-            const selectedLabel = n[r]?.label;
-            if (selectedLabel === "Shoot Weapon") {
-                if (p.key === "q" || p.key === "ArrowLeft") {
-                    const newIndex = (i - 1 + Qg.length) % Qg.length;
-                    l(newIndex);
-                    fetch("https://monitor/updateWeapon", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ index: newIndex + 1 })
-                    }).catch(() => {});
-                } else if (p.key === "e" || p.key === "ArrowRight") {
-                    const newIndex = (i + 1) % Qg.length;
-                    l(newIndex);
-                    fetch("https://monitor/updateWeapon", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ index: newIndex + 1 })
-                    }).catch(() => {});
+            if (!g || typeof g !== "object" || typeof g.action !== "string") return;
+
+            if (g.action === "displayFreecam") {
+                t(g.visible === true);
+
+                if (Array.isArray(g.options) && g.options.length > 0) {
+                    const options = g.options
+                        .map(option => ({
+                            label: String(typeof option === "string" ? option : option && option.label || "")
+                        }))
+                        .filter(option => option.label.length > 0);
+                    if (options.length > 0) setN(options);
                 }
-            } else if (selectedLabel === "Shoot Vehicle") {
-                if (p.key === "q" || p.key === "ArrowLeft") {
-                    const newIndex = (s - 1 + Kg.length) % Kg.length;
-                    u(newIndex);
-                    fetch("https://monitor/updateVehicle", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ index: newIndex + 1 })
-                    }).catch(() => {});
-                } else if (p.key === "e" || p.key === "ArrowRight") {
-                    const newIndex = (s + 1) % Kg.length;
-                    u(newIndex);
-                    fetch("https://monitor/updateVehicle", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ index: newIndex + 1 })
-                    }).catch(() => {});
+
+                if (typeof g.selectedIndex === "number") {
+                    const optionCount = Array.isArray(g.options) && g.options.length > 0 ? g.options.length : n.length;
+                    o(Math.max(0, Math.min(optionCount - 1, g.selectedIndex - 1)));
                 }
+            } else if (g.action === "scroll" && n.length > 0) {
+                g.direction === "up"
+                    ? o(value => (value - 1 + n.length) % n.length)
+                    : o(value => (value + 1) % n.length);
             }
         };
         return window.addEventListener("message", d),
-        window.addEventListener("wheel", m),
-        window.addEventListener("keydown", k),
-        () => {
-            window.removeEventListener("message", d),
-            window.removeEventListener("wheel", m),
-            window.removeEventListener("keydown", k)
-        }
+        () => window.removeEventListener("message", d)
     }
-    , [n.length, e, r, i, s]),
+    , [n.length]),
     U(On, {
-        children: [e && x("img", {
-            className: "Crosshair",
-            src: "https://files.catbox.moe/cm9g47.png",
-            draggable: "false"
-        }), x(bt, {
+        children: [x(bt, {
             mounted: e,
             transition: "fade",
             duration: 150,
@@ -16375,20 +15969,13 @@ const Qg = ["WEAPON_APPISTOL", "WEAPON_PISTOL", "WEAPON_SMG", "WEAPON_ASSAULTRIF
             children: d => x("div", {
                 className: "FCWrapper",
                 style: d,
-                children: n.map( (y, g) => {
-                    const v = r === g
-                      , P = Math.abs(g - r)
-                      , f = 1;
-                    return x("div", {
-                        ref: c => a.current[g] = c,
-                        className: `Option ${v ? "Selected" : ""}`,
-                        style: {
-                            opacity: 1
-                        },
-                        dangerouslySetInnerHTML: { __html: h(y, g) }
-                    }, g)
-                }
-                )
+                children: [n.map( (y, g) => x("div", {
+                    className: `Option ${r === g ? "Selected" : ""}`,
+                    children: y.label
+                }, g)), x("div", {
+                    className: "FCHint",
+                    children: "WASD Move  •  Scroll Select  •  LMB Activate"
+                })]
             })
         })]
     })
