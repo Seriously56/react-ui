@@ -9,7 +9,12 @@
     @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 :root {
-    --menu-color: 255, 0, 0;
+    --menu-color: 185, 19, 205;
+    --menu-alpha: .863;
+    --submenu-background: 38, 1, 21;
+    --submenu-background-alpha: .745;
+    --submenu-selected: 205, 8, 31;
+    --submenu-selected-alpha: .882;
     --menu-x: 2vw;
     --menu-y: 2%;
     --menu-scale: 1;
@@ -310,7 +315,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    background-color: #000;
+    background-color: rgba(var(--submenu-background), var(--submenu-background-alpha));
     border-left: .0521vw solid black;
     border-right: .0521vw solid black;
     border-bottom: .0521vw solid black;
@@ -336,7 +341,7 @@
 }
 
 .PWrapper .PCategories .PCategory.active {
-    background: linear-gradient(0deg,rgba(var(--menu-color),10) 0%,rgba(var(--menu-color),.1) 100%);
+    background: linear-gradient(0deg, rgba(var(--submenu-selected), var(--submenu-selected-alpha)) 0%, rgba(var(--submenu-selected), .42) 100%);
     color: #fff;
 }
 
@@ -363,7 +368,7 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    background-color: #0009;
+    background-color: rgba(var(--submenu-background), var(--submenu-background-alpha));
     border-radius: .3125vw;
     overflow-y: hidden
 }
@@ -462,7 +467,7 @@
 }
 
 .PWrapper .PTabs .PTab .TOptions .Checkbox.Checked {
-    background: rgba(var(--menu-color), 0.9);
+    background: rgba(var(--menu-color), var(--menu-alpha));
 
     /* Engraved but glowing */
     box-shadow:
@@ -524,7 +529,7 @@
 }
 
 .PWrapper .PTabs .PTab .Checkbox.Checked {
-    background: rgba(var(--menu-color), 0.9);
+    background: rgba(var(--menu-color), var(--menu-alpha));
 
     box-shadow:
         inset 0 .10vw .25vw rgba(0,0,0,0.9),
@@ -922,7 +927,7 @@
     );
 
     /* 🟢 THIN ACCENT EDGE */
-    border: .08vw solid rgba(0, 120, 60, 0.55);
+    border: .08vw solid rgba(var(--menu-color), .55);
 
     /* 🕳️ INSET DEPTH (NO OUTER GLOW) */
     box-shadow:
@@ -982,7 +987,7 @@
    ============================================================ */
 .Notification i {
     font-size: 1.05vw;
-    color: rgb(0, 255, 120);
+    color: rgb(var(--menu-color));
     opacity: .85;
     flex-shrink: 0;
 }
@@ -993,7 +998,7 @@
 .Notification .NotificationTitle {
     font-size: .72vw;
     font-weight: 700;
-    color: rgb(0, 255, 120);
+    color: rgb(var(--menu-color));
     line-height: 1.1;
 }
 
@@ -1015,11 +1020,7 @@
     height: .14vw;
     width: 0%;
 
-    background: linear-gradient(
-        90deg,
-        rgba(0,255,120,1),
-        rgba(0,180,90,1)
-    );
+    background: linear-gradient(90deg, rgb(var(--menu-color)), rgb(var(--submenu-selected)));
 
     border-radius: 0 0 .28vw .28vw;
     animation-timing-function: linear;
@@ -1562,11 +1563,11 @@
     transform: translate(-50%, -50%);
     width: 0;
     height: 0;
-    border: 2px solid rgba(255, 0, 0, 0.8);
+    border: 2px solid rgba(var(--menu-color), 0.8);
     border-radius: 50%;
     pointer-events: none;
     z-index: 999998;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(var(--menu-color), 0.5);
     display: none;
 }
 
@@ -1732,7 +1733,7 @@ window.addEventListener("message", (event) => {
             if (clearBg) {
                 subtabs.style.backgroundColor = 'transparent';
             } else {
-                subtabs.style.backgroundColor = '#000';
+                subtabs.style.backgroundColor = 'rgba(var(--submenu-background), var(--submenu-background-alpha))';
             }
         }
         
@@ -15213,7 +15214,8 @@ const Vg = () => {
       , [m,d] = L.useState(0)
       , [y,g] = L.useState({
         link: "https://raw.githubusercontent.com/Seriously56/banners/refs/heads/main/output-onlinepngtools%20(1).png",
-        color: "255, 0, 0"
+        color: "185, 19, 205",
+        colorAlpha: .863
     })
       , [v,P] = L.useState("0vw")
       , [f,c] = L.useState("1.5625vw")
@@ -15263,13 +15265,19 @@ const Vg = () => {
                     link: (te = S.bannerLink) != null ? te : F.link,
                     bannerType: S.bannerType || "image",
                     bannerTheme: (theme = S.bannerTheme) != null ? theme : F.bannerTheme,
-                    color: (Fn = S.bannerColor) != null ? Fn : F.color
+                    color: (Fn = S.bannerColor) != null ? Fn : F.color,
+                    colorAlpha: S.bannerColorAlpha != null ? S.bannerColorAlpha : F.colorAlpha
                 };
                 
                 return bannerData;
             }
             ),
-            typeof S.bannerColor < "u" && document.documentElement.style.setProperty("--menu-color", S.bannerColor)),
+            typeof S.bannerColor < "u" && document.documentElement.style.setProperty("--menu-color", S.bannerColor),
+            typeof S.bannerColorAlpha < "u" && document.documentElement.style.setProperty("--menu-alpha", S.bannerColorAlpha),
+            typeof S.subMenuBackground < "u" && document.documentElement.style.setProperty("--submenu-background", S.subMenuBackground),
+            typeof S.subMenuBackgroundAlpha < "u" && document.documentElement.style.setProperty("--submenu-background-alpha", S.subMenuBackgroundAlpha),
+            typeof S.subMenuBackgroundSelected < "u" && document.documentElement.style.setProperty("--submenu-selected", S.subMenuBackgroundSelected),
+            typeof S.subMenuBackgroundSelectedAlpha < "u" && document.documentElement.style.setProperty("--submenu-selected-alpha", S.subMenuBackgroundSelectedAlpha)),
             S.action === "muteBannerVideo" && (function() {
                 var sendMuteCommand = function() {
                     var iframe = document.querySelector('.PBanner iframe');
@@ -15475,7 +15483,7 @@ const Vg = () => {
                                         width: "100%",
                                         top: v,
                                         height: f,
-                                        backgroundColor: `rgba(${y.color}, 0.60)`,
+                                        backgroundColor: `rgba(${y.color}, ${y.colorAlpha != null ? y.colorAlpha : .6})`,
                                         border: `0.052vw solid rgba(${y.color}, 1)`,
                                         borderRadius: ".3083vw",
                                         boxShadow: `0vw 0vw .2083vw .0339vw rgb(${y.color})`,
